@@ -5,18 +5,35 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-async function inputBill(length) {
+function inputBill(length) {
   let count = 0;
   let matrix = [];
   console.log("Please input your test case");
   rl.on("line", (line) => {
     matrix.push(line.split(" "));
     count++;
-    if (count == length) {
+    if (count == length && checkQualifiedInput(matrix)) {
       calculateBill(matrix);
-      return matrix;
     }
   });
+}
+
+function checkQualifiedInput(matrix) {
+  let nk = matrix[0];
+  let bill = matrix[1];
+  if (
+    +nk[0] < +nk[1] ||
+    nk[0] < 2 ||
+    +nk[0] > Math.pow(10, 5) ||
+    nk[1] < 0 ||
+    bill[nk[1]] < 0 ||
+    +bill[nk[1]] > Math.pow(10, 4)
+  ) {
+    console.log("Input is not qualified!!");
+    rl.close();
+    return false;
+  }
+  return true;
 }
 
 function calculateDevidedPay(nk, bill) {
