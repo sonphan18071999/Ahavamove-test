@@ -55,6 +55,7 @@ function calculateBill(matrix) {
   let balance = annaPaid - calculateDevidedPay(nk, bill);
   if (balance === 0) {
     console.log("Bon Appetit");
+    rl.close();
   } else {
     console.log(balance);
   }
